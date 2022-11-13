@@ -27,22 +27,22 @@ Our site must have these characteristics:
 * Follow / Unfollow a User
 * Profile Page
 * Timeline (view following messages)
-* Likes / Unlike (Optionnal)
-
-Public site :
-Homepage (no member connected => subscribe / login))
-Home for a connected user => time line
-Profile page for a user (connected user, its followers/followings or anybody else on the same instance/software/from the fediverse)
-User search page or form to display the profile of a user (username@domainname)
-Subscribe page + OK + email OK + email checked
-—
-Server programs :
-Inbox dispatcher (get message from outside and put it in user timeline)
-Outbox dispatcher (post local messages to other users (locally or on the network))
-Programs to answer to website (login / logout / subscribe / follow / unfollow / post message / post direct message / ...)
-
+* Likes / Unlike (Optionnal)<br>
+———<br>
+Public site : <br>
+Homepage (no member connected => subscribe / login))<br>
+Home for a connected user => time line<br>
+Profile page for a user (connected user, its followers/followings or anybody else on the same instance/software/from the fediverse)<br>
+User search page or form to display the profile of a user (username@domainname)<br>
+Subscribe page + OK + email OK + email checked<br>
+———<br>
+Server programs :<br>
+Inbox dispatcher (get message from outside and put it in user timeline)<br>
+Outbox dispatcher (post local messages to other users (locally or on the network))<br>
+Programs to answer to website (login / logout / subscribe / follow / unfollow / post message / post direct message / ...)<br>
+———<br>
 ### Additional features :
-Our social network will be usable by the students of our university.
+Our social network will be usable by the students of our university.<br>
 In addition to the social networking feature, we're also going to make sure users can use it as a dating site for college students who are over 18.
 
 ### Frameworks :
