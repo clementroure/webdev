@@ -55,3 +55,6 @@ In addition to the social networking feature, we're also going to make sure user
 
 ### BackEnd :
 * node.js
+
+### Database :
+* PostgreSQL
