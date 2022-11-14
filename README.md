@@ -56,5 +56,20 @@ In addition to the social networking feature, we're also going to make sure user
 ### BackEnd :
 * node.js
 
+
+
 ### Database :
 * PostgreSQL
+
+![leo_crush bdd](https://user-images.githubusercontent.com/113580716/201621153-4628c250-189d-4abd-9c94-5621b2165a4f.png)
+
+## Who does what ?
+
+### account (sign in / out) + gestion compte (changer mail, mdp,....) :
+* Jacky<br>
+* Léo<br>
+### poster messages + réponses + like + comment :
+* Clément<br>
+* Nathan<br>
+### Profil :
+* Thomas<br>
