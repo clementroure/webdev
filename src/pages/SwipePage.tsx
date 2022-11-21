@@ -1,135 +1,51 @@
 import React, { useState, useMemo, useRef } from 'react'
 import TinderCard from 'react-tinder-card'
+import { v4 as uuidv4 } from 'uuid';
 import img1 from "../images/1.jpg"
 import img2 from "../images/2.jpg"
 import img3 from "../images/3.jpg"
 import img4 from "../images/4.jpg"
 import img5 from "../images/5.jpg"
 
-const db = [
-  {
-    name: 'Richard Hendricks',
-    url: img1,
-  },
-  {
-    name: 'Erlich Bachman',
-    url: img2,
-  },
-  {
-    name: 'Monica Hall',
-    url: img3,
-  },
-  {
-    name: 'Jared Dunn',
-    url: img4,
-  },
-  {
-    name: 'Dinesh Chugtai',
-    url: img5,
+function SwipePage(){
+
+  // resize
+  const [height, setHeight] = useState(window.innerHeight-2)
+  const documentHeight = () => {
+      setHeight(window.innerHeight-2)
   }
-]
+  window.addEventListener('resize', documentHeight)
 
-function SwipePage () {
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1)
-  const [lastDirection, setLastDirection] = useState()
-  // used for outOfFrame closure
-  const currentIndexRef = useRef(currentIndex)
+  // variables
+  const [users, setUsers] = useState<{username: string, description: string, picture: string, rotation: number}[]>([{username: "Thomas", description:"bla bla", picture:img1,  rotation: (Math.random() * (5 - -5) + -5),},{username: "Thomas", description:"bla bla", picture:img2, rotation: (Math.random() * (5 - -5) + -5)},{username: "Thomas", description:"bla bla", picture:img3, rotation: (Math.random() * (5 - -5) + -5)},{username: "Thomas", description:"bla bla", picture:img4, rotation: (Math.random() * (5 - -5) + -5)},{username: "Thomas", description:"bla bla", picture:img5, rotation: (Math.random() * (5 - -5) + -5)}])
 
-  const childRefs = useMemo(
-    () =>
-      Array(db.length)
-        .fill(0)
-        .map((i) => React.createRef()),
-    []
-  )
-
-  const updateCurrentIndex = (val: any) => {
-    setCurrentIndex(val)
-    currentIndexRef.current = val
+  // methods
+  const onSwipe = (direction:any) => {
+    console.log('You swiped: ' + direction)
   }
-
-  const canGoBack = currentIndex < db.length - 1
-
-  const canSwipe = currentIndex >= 0
-
-  // set last direction and decrease current index
-  const swiped = (direction:any, nameToDelete:any, index:number) => {
-    setLastDirection(direction)
-    updateCurrentIndex(index - 1)
-  }
-
-  const outOfFrame = (name: string, idx:number) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-    // handle the case in which go back is pressed before card goes outOfFrame
-    // @ts-ignore
-    currentIndexRef.current >= idx && childRefs[idx].current!.restoreCard()
-    // TODO: when quickly swipe and restore multiple times the same card,
-    // it happens multiple outOfFrame events are queued and the card disappear
-    // during latest swipes. Only the last outOfFrame event should be considered valid
-  }
-
-  const swipe = async (dir:any) => {
-    if (canSwipe && currentIndex < db.length) {
-      // @ts-ignore
-      await childRefs[currentIndex].current!.swipe(dir) // Swipe the card!
-    }
-  }
-
-  // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return
-    const newIndex = currentIndex + 1
-    updateCurrentIndex(newIndex)
-    // @ts-ignore
-    await childRefs[newIndex].current.restoreCard()
+  
+  const onCardLeftScreen = (myIdentifier:any) => {
+     console.log(myIdentifier + ' left the screen')
   }
 
   return (
-    <div>
-      <link
-        href='https://fonts.googleapis.com/css?family=Damion&display=swap'
-        rel='stylesheet'
-      />
-      <link
-        href='https://fonts.googleapis.com/css?family=Alatsi&display=swap'
-        rel='stylesheet'
-      />
-      <h1>React Tinder Card</h1>
-      <div className='cardContainer'>
-        {db.map((character, index) => (
-          <TinderCard
-            //@ts-ignore
-            ref={childRefs[index]}
-            className='swipe'
-            key={character.name}
-            onSwipe={(dir) => swiped(dir, character.name, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div
-              style={{ backgroundImage: 'url(' + character.url + ')' }}
-              className='card'
-            >
-              <h3>{character.name}</h3>
-            </div>
-          </TinderCard>
-        ))}
+    <div className='w-screen items-center justify-center bg-[#030017]'>
+      <div className='grid max-w-3xl border-x-2 border-gray-800 bg-gray-900 w-full h-screen place-items-center overflow-hidden relative left-1/2 -translate-x-1/2' style={{height: height}}>
+          {users?.map(function(user: any, index: number) {
+          return <TinderCard className='absolute' onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} swipeThreshold={0.175} key={uuidv4()}>
+                <div style={{transform: `rotate(${user?.rotation}deg)`}} className="max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <img className="rounded-t-lg pointer-events-none w-80 h-80 object-cover" src={user.picture} alt=""/>
+                    <div className="p-5">
+                        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{user.username}</h5>
+                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{user.description}</p>
+                    </div>
+                  </div>
+                  </TinderCard>
+                  })
+                }
       </div>
-      <div className='buttons'>
-        <button style={{ backgroundColor:  '#c3c4d3' }} onClick={() => swipe('left')}>Swipe left!</button>
-        <button style={{ backgroundColor: '#c3c4d3' }} onClick={() => goBack()}>Undo swipe!</button>
-        <button style={{ backgroundColor: '#c3c4d3' }} onClick={() => swipe('right')}>Swipe right!</button>
-      </div>
-      {lastDirection ? (
-        <h2 key={lastDirection} className='infoText'>
-          You swiped {lastDirection}
-        </h2>
-      ) : (
-        <h2 className='infoText'>
-          Swipe a card or press a button to get Restore Card button visible!
-        </h2>
-      )}
     </div>
-  )
+  );
 }
 
 export default SwipePage
