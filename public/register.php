@@ -7,7 +7,7 @@ $password = "99yXmThpFno";
 $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
 $dbconn = pg_connect($connection_string);
 
-if(isset($_POST['submit'])&&!empty($_POST['submit'])){
+if(isset($_POST['name'])&&!empty($_POST['name'])&&isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['pwd'])&&!empty($_POST['pwd'])){
     
     $myuuid = guidv4();
     $query = "insert into public.users(id,username,email,password)values('$myuuid','".$_POST['name']."','".$_POST['email']."','".md5($_POST['pwd'])."')"; // encrypted md5 hash password
@@ -73,7 +73,7 @@ function guidv4($data = null) {
   </form>
 
   <div>
-    <a href="/webdev/login.php">Login</a>
+     <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/login.php');">Login</a>
   </div>
 </div>
 </body>

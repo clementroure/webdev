@@ -7,7 +7,7 @@ $password = "99yXmThpFno";
 $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
 $dbconn = pg_connect($connection_string);
 
-if(isset($_POST['submit'])&&!empty($_POST['submit'])){
+if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!empty($_POST['password'])){
     
     $password_md5 = md5($_POST['password']);  
     $query = "SELECT * FROM users WHERE email = '".$_POST['email']."' AND password = '$password_md5'"; 
@@ -17,11 +17,11 @@ if(isset($_POST['submit'])&&!empty($_POST['submit'])){
     echo pg_num_rows($result);
     if(pg_num_rows($result) > 0){
         
-            echo "Login Successfully !";
-            header('Location: app.php');
+      echo "Login Successfully !";
+      header('Location: app.php');
     }else{
         
-            echo "Soething Went Wrong";
+      echo "Soething Went Wrong";
     }
 }
 
@@ -56,7 +56,7 @@ if(isset($_POST['submit'])&&!empty($_POST['submit'])){
   </form>
 
   <div>
-    <a style="margin-top: '10'" href="/webdev/register.php">Register</a>
+    <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/register.php');">Register</a>
   </div>
 </div>
 </body>
