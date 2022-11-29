@@ -5,8 +5,17 @@
 
   if(array_key_exists('logout', $_POST)) {
 
-    setcookie('id',"",0,"/",$_SERVER['SERVER_NAME']);
-    header('Location: login.php');
+    if($_SERVER['SERVER_NAME'] == "localhost"){
+      
+      setcookie('id',"",0,"/",$_SERVER['SERVER_NAME']);
+      header('Location: login.php');
+    }
+    else{
+      unset($_COOKIE['id']); 
+      setcookie('id', null, -1, '/'); 
+      
+      header('Location: login.php');
+    }
   }
 ?>
 
