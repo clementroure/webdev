@@ -40,14 +40,17 @@ if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!
   <title>Login</title>
   <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/login.css">
+  <style>
+    a {cursor: pointer;}
+    form {margin-bottom: 10px;}
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
   <h2>Login Here </h2>
-  <form method="post">
+  <form  method="post">
   
     <div class="form-group">
       <label for="email">Email:</label>
