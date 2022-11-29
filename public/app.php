@@ -2,6 +2,12 @@
   if(!isset($_COOKIE['id'])) {
     header('Location: register.php');
   }
+
+  if(array_key_exists('logout', $_POST)) {
+
+    setcookie('id',"",0,"/",$_SERVER['SERVER_NAME']);
+    header('Location: login.php');
+  }
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +23,11 @@
 <div class="container">
   <h2>App</h2>
   <p>You are connected.</p>
+  <form method="post">
+    <input type="submit" name="logout"
+      class="button" value="Logout" 
+    />
+  </form>
 </div>
 </body>
 </html>

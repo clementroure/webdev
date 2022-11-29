@@ -1,4 +1,9 @@
 <?php
+
+if(isset($_COOKIE['id'])) {
+  header('Location: app.php');
+}
+
 $host = "pga.esilv.olfsoftware.fr";
 $port = "5432";
 $dbname = "pggrp4";
