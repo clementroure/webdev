@@ -15,6 +15,9 @@ if(isset($_POST['name'])&&!empty($_POST['name'])&&isset($_POST['email'])&&!empty
     if($ret){
         
         echo "Data saved Successfully";
+        $cookie_name = "id";
+        $cookie_value = $myuuid;
+        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day validity
         header('Location: app.php');
     }else{
         

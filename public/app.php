@@ -1,3 +1,9 @@
+<?php
+  if(!isset($_COOKIE['id'])) {
+    header('Location: register.php');
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

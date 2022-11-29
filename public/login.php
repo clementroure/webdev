@@ -12,12 +12,14 @@ if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!
     $password_md5 = md5($_POST['password']);  
     $query = "SELECT * FROM users WHERE email = '".$_POST['email']."' AND password = '$password_md5'"; 
     $result = pg_query($dbconn, $query); 
-    echo $_POST['email'];
-    echo $password_md5;
-    echo pg_num_rows($result);
+    $row=pg_fetch_assoc($result);
+    
     if(pg_num_rows($result) > 0){
         
       echo "Login Successfully !";
+      $cookie_name = "id";
+      $cookie_value = $row['id'];
+      setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day validity
       header('Location: app.php');
     }else{
         
