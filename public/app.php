@@ -27,16 +27,55 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="navbar.css">
+  <style>
+    h2 {padding-top: 80px;}
+    form {padding-top: 12px; padding-left: 6px;}
+    a {cursor: pointer;}
+  </style>
 </head>
 <body>
 <div class="container">
-  <h2>App</h2>
+
+  <!-- NavBar -->
+  <div class="navigation">
+    <div class="logo">
+      <a class="no-underline" href="#">
+        Leo Crush
+      </a>
+    </div>
+    <div class="navigation-search-container">
+      <i class="fa fa-search"></i>
+      <input class="search-field" type="text" placeholder="Search">
+      <div class="search-container">
+        <div class="search-container-box">
+          <div class="search-results">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation-icons">
+      <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/app.php');" class="navigation-link">
+        <i class="far fa-compass iconActive"></i>
+      </a>
+      <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link">
+        <i class="far fa-user-circle icon"></i>
+      </a>
+      <!-- <a href="https://instagram.com/mimoudix" id="signout" class="navigation-link">
+        <i class="fas fa-sign-out-alt icon"></i>
+      </a> -->
+      <form method="post">
+        <input type="submit" name="logout"
+          class="button" value="Logout" 
+        />
+      </form>
+    </div>
+  </div>
+
+  <h2></h2>
   <p>You are connected.</p>
-  <form method="post">
-    <input type="submit" name="logout"
-      class="button" value="Logout" 
-    />
-  </form>
 </div>
 </body>
 </html>
