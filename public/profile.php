@@ -57,8 +57,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
   <style>
-    header {padding-top: 40px;}
-	form {padding-top: 15px; padding-left: 6px;}
+    header {padding-top: 50px;}
+	form {padding-top: 13px; padding-left: 6px;}
 	a {cursor: pointer;}
   </style>
 </head>
@@ -120,7 +120,7 @@
 
 			<div class="profile-user-settings">
 
-				<h1 class="profile-user-name">Lola77</h1>
+				<h1 class="profile-user-name"><?php echo $username;?></h1>
 
 				<button class="btn profile-edit-btn">Edit Profile</button>
 

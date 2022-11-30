@@ -63,7 +63,7 @@
   <link rel="stylesheet" href="css/common.css">
   <style>
     h2 {padding-top: 80px;}
-    form {padding-top: 15px; padding-left: 6px;}
+    form {padding-top: 13px; padding-left: 6px;}
     a {cursor: pointer;}
   </style>
 </head>
