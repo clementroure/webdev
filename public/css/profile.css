@@ -369,3 +369,29 @@ Remove or comment-out the code block below to see how the browser will fall-back
         }
     }
 }
+
+input[type=text] {
+    font-size: 5px;
+    padding:5px; 
+    border:2px solid rgb(170, 170, 170); 
+    -webkit-border-radius: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+input[type=text]:focus {
+    border-color:rgb(195, 193, 193);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+input[type=submit] {
+    padding: 3px 10px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    font-size: 10px;
+    font-weight: 600;
+}

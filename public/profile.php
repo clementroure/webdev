@@ -52,12 +52,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/profile.css">
   <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/common.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
   <style>
-    header {padding-top: 50px;}
-	form {padding-top: 12px; padding-left: 6px;}
+    header {padding-top: 40px;}
+	form {padding-top: 15px; padding-left: 6px;}
 	a {cursor: pointer;}
   </style>
 </head>
@@ -119,7 +120,7 @@
 
 			<div class="profile-user-settings">
 
-				<h1 class="profile-user-name">janedoe_</h1>
+				<h1 class="profile-user-name">Lola77</h1>
 
 				<button class="btn profile-edit-btn">Edit Profile</button>
 
@@ -139,7 +140,7 @@
 
 			<div class="profile-bio">
 
-				<p><span class="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+				<p> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
 
 			</div>
 

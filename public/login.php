@@ -40,6 +40,7 @@ if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!
   <title>Login</title>
   <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/common.css">
   <style>
     a {cursor: pointer;}
     form {margin-bottom: 10px;}
