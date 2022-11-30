@@ -58,11 +58,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/common.css">
   <style>
     h2 {padding-top: 80px;}
-    form {padding-top: 12px; padding-left: 6px;}
+    form {padding-top: 15px; padding-left: 6px;}
     a {cursor: pointer;}
   </style>
 </head>
