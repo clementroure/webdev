@@ -1,7 +1,53 @@
+<?php
+  if(!isset($_COOKIE['id'])) {
+    header('Location: register.php');
+  }
+  else{
+
+	$host = "pga.esilv.olfsoftware.fr";
+	$port = "5432";
+	$dbname = "pggrp4";
+	$user = "grp47oxh6hjegww";
+	$password = "99yXmThpFno"; 
+	$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
+	$dbconn = pg_connect($connection_string);
+
+	$query = "SELECT * FROM users WHERE id = '".$_COOKIE['id']."'"; 
+    $result = pg_query($dbconn, $query); 
+    $row=pg_fetch_assoc($result);
+
+	if(pg_num_rows($result) > 0){
+        
+	  $username = $row['username'];
+	  $bio = $row['bio'];
+	  $profil_picture = $row['profil_picture'];
+	}else{
+		  
+    //   echo "Something Went Wrong";
+	}
+  }
+
+  if(array_key_exists('logout', $_POST)) {
+
+    if($_SERVER['SERVER_NAME'] == "localhost"){
+      
+      setcookie('id',"",0,"/",$_SERVER['SERVER_NAME']);
+      header('Location: login.php');
+    }
+    else{
+      unset($_COOKIE['id']); 
+      setcookie('id', null, -1, '/'); 
+      
+      header('Location: login.php');
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Login</title>
+  <title>Profile</title>
   <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/profile.css">
@@ -62,7 +108,12 @@
 
 			<div class="profile-image">
 
-				<img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+			<div style="cursor:pointer;" style class="image-upload">
+		     	<label style="cursor:pointer;" for="file-input">
+				   <img width="150" height="150" id="picture" style="cursor:pointer;"onClick="onFileSelected()" src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+				</label>
+				<input style="display:none;" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture').src = window.URL.createObjectURL(this.files[0])"/>
+            </div>
 
 			</div>
 

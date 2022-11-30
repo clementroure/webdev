@@ -54,6 +54,10 @@ img {
     padding: 5rem 0;
 }
 
+.image-upload>input {
+    display: none;
+}
+
 .profile::after {
     content: "";
     display: block;

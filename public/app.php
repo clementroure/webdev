@@ -2,6 +2,28 @@
   if(!isset($_COOKIE['id'])) {
     header('Location: register.php');
   }
+  else{
+
+    $host = "pga.esilv.olfsoftware.fr";
+    $port = "5432";
+    $dbname = "pggrp4";
+    $user = "grp47oxh6hjegww";
+    $password = "99yXmThpFno"; 
+    $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
+    $dbconn = pg_connect($connection_string);  
+
+    $query = "SELECT * FROM users WHERE id = '".$_COOKIE['id']."'"; 
+    $result = pg_query($dbconn, $query); 
+    $row=pg_fetch_assoc($result);
+
+    if(pg_num_rows($result) > 0){
+        
+		
+    }else{
+        
+      // echo "Something Went Wrong";
+    }
+  }
 
   if(array_key_exists('logout', $_POST)) {
 
@@ -17,6 +39,14 @@
       header('Location: login.php');
     }
   }
+
+  $host = "pga.esilv.olfsoftware.fr";
+  $port = "5432";
+  $dbname = "pggrp4";
+  $user = "grp47oxh6hjegww";
+  $password = "99yXmThpFno"; 
+  $connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
+  $dbconn = pg_connect($connection_string);
 ?>
 
 <!DOCTYPE html>

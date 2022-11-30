@@ -28,7 +28,7 @@ if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!
       header('Location: app.php');
     }else{
         
-      echo "Soething Went Wrong";
+      echo "Something Went Wrong";
     }
 }
 
@@ -62,7 +62,7 @@ if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!
       <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
     </div>
      
-    <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+    <input type="submit" name="submit" class="btn btn-primary" value="Login">
   </form>
 
   <div>

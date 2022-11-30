@@ -80,7 +80,7 @@ function guidv4($data = null) {
       <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
     </div>
      
-    <input type="submit" name="submit" class="btn btn-primary" value="Submit">
+    <input type="submit" name="submit" class="btn btn-primary" value="Register">
   </form>
 
   <div>
