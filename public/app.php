@@ -19,6 +19,9 @@
     if(pg_num_rows($result) > 0){
         
 		
+      $username = $row['username'];
+      // $bio = $row['bio'];
+      $profil_picture = $row['profil_picture'];
     }else{
         
       // echo "Something Went Wrong";
@@ -62,7 +65,6 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/common.css">
   <style>
-    h2 {padding-top: 80px;}
     form {padding-top: 13px; padding-left: 6px;}
     a {cursor: pointer;}
   </style>
@@ -106,8 +108,61 @@
     </div>
   </div>
 
-  <h2></h2>
-  <p>You are connected.</p>
+  <!-- Card -->
+  <div class="instagram-card">
+    <div class="instagram-card-header">
+      <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=face" class="instagram-card-user-image"/>
+      <a class="instagram-card-user-name" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a>
+      <div class="instagram-card-time">58 min</div>
+    </div>
+  
+    <div class="intagram-card-image">
+      <img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" width="99.98%"/>
+    </div>
+  
+    <div class="instagram-card-content">
+      <p class="likes">666 Likes</p>
+      <p><a class="instagram-card-content-user" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a>Very cool place 😜❄️ <a class="hashtag">#webdev</a></p>
+    <hr>
+    </div>
+  </div>
+   <!-- Card -->
+   <div class="instagram-card">
+    <div class="instagram-card-header">
+      <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=face" class="instagram-card-user-image"/>
+      <a class="instagram-card-user-name" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a>
+      <div class="instagram-card-time">58 min</div>
+    </div>
+  
+    <div class="intagram-card-image">
+      <img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" width="99.98%"/>
+    </div>
+  
+    <div class="instagram-card-content">
+      <p class="likes">666 Likes</p>
+      <p><a class="instagram-card-content-user" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a> Very cool place 😜❄️ <a class="hashtag">#webdev</a></p>
+    <hr>
+    </div>
+  </div>
+   <!-- Card -->
+   <div class="instagram-card">
+    <div class="instagram-card-header">
+      <img src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=face" class="instagram-card-user-image"/>
+      <a class="instagram-card-user-name" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a>
+      <div class="instagram-card-time">58 min</div>
+    </div>
+  
+    <div class="intagram-card-image">
+      <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" width="99.98%"/>
+    </div>
+  
+    <div class="instagram-card-content">
+      <p class="likes">666 Likes</p>
+      <p><a class="instagram-card-content-user" onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link"><?php echo $username;?></a> Very cool place 😜❄️ <a class="hashtag">#webdev</a></p>
+    <hr>
+    </div>
+  </div>
+
 </div>
 </body>
 </html>

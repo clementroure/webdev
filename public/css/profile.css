@@ -188,6 +188,12 @@ img {
     text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
 }
 
+.picture{
+
+    width:150px;
+    height:150px;
+}
+
 .fa-clone,
 .fa-comment {
     transform: rotateY(180deg);
@@ -218,6 +224,12 @@ img {
         display: flex;
         flex-wrap: wrap;
         padding: 4rem 0;
+    }
+
+    .picture{
+
+        width:75px;
+        height:75px;
     }
 
     .profile::after {

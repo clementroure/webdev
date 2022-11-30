@@ -3,7 +3,7 @@
     header('Location: register.php');
   }
   else{
-
+	
 	$host = "pga.esilv.olfsoftware.fr";
 	$port = "5432";
 	$dbname = "pggrp4";
@@ -19,7 +19,7 @@
 	if(pg_num_rows($result) > 0){
         
 	  $username = $row['username'];
-	  $bio = $row['bio'];
+	//   $bio = $row['bio'];
 	  $profil_picture = $row['profil_picture'];
 	}else{
 		  
@@ -111,7 +111,7 @@
 
 			<div style="cursor:pointer;" style class="image-upload">
 		     	<label style="cursor:pointer;" for="file-input">
-				   <img width="150" height="150" id="picture" style="cursor:pointer;"onClick="onFileSelected()" src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
+				   <img class="picture" id="picture" style="cursor:pointer;"onClick="onFileSelected()" src="https://images.unsplash.com/photo-1513721032312-6a18a42c8763?w=152&h=152&fit=crop&crop=faces" alt="">
 				</label>
 				<input style="display:none;" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture').src = window.URL.createObjectURL(this.files[0])"/>
             </div>
