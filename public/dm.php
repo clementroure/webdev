@@ -5,6 +5,7 @@
  
         <title>chat DM</title>
         <meta name="description" content="chatbox" />
+        <link href="stylecss.css" rel = "stylesheet" type = "text/css">
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/common.css">
         <link rel="stylesheet" href="css/dm.css">
@@ -12,13 +13,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <style>
+    header {padding-top: 50px;}
+    form {padding-top: 13px; padding-left: 6px;}
+    a {cursor: pointer;}
+  </style>
     </head>
     <body>
-    <style>
-      header {padding-top: 50px;}
-      form {padding-top: 13px; padding-left: 6px;}
-      a {cursor: pointer;}
-    </style>
     <?php
     // connect to postgresql
     $user = "grp47oxh6hjegww"; 
@@ -46,6 +47,7 @@
 	        header('location:dm_menu.php?id='.$user_id);
         }
 
+
     ?>
 
 <!-- NavBar -->
@@ -55,7 +57,7 @@
         Leo Crush
       </a>
     </div>
-    <div class="navigation-search-container">
+    <!-- <div class="navigation-search-container">
       <i class="fa fa-search"></i>
       <input class="search-field" type="text" placeholder="Search">
       <div class="search-container">
@@ -65,9 +67,9 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="navigation-icons">
-    <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/dm.php?id=144&convId=145');" class="navigation-link">
+	  <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/dm.php?id=144&convId=145&fbclid=IwAR2r5gtlCDY-EEcazyf843qMalXi5w5UK0QGEk0Vc6c32vf0_6H610FLgkY');" class="navigation-link">
         <i class="far fa-envelope iconActive"></i>
       </a>
       <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/app.php');" class="navigation-link">
@@ -76,9 +78,6 @@
       <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link">
         <i class="far fa-user-circle icon"></i>
       </a>
-      <!-- <a href="https://instagram.com/mimoudix" id="signout" class="navigation-link">
-        <i class="fas fa-sign-out-alt icon"></i>
-      </a> -->
       <form method="post">
         <input type="submit" name="logout"
           class="button" value="Logout" 
@@ -93,7 +92,7 @@
                 <p><a id="retour_dm_menu" href="app.php">Retour</a></p>
             </div>
  
-            <div id="chatbox" style="text-align: start;">
+            <div id="chatbox">
             <?php
             
             // récupération des anciens messages si ils existent dans $result
@@ -104,6 +103,7 @@
             $oldMessages = pg_query($connect, $query); 
 
             //$sender="";
+            echo "<div id=text_conv_area>";
 	        while ($row = pg_fetch_row($oldMessages)) {
                 $date = $row[5];
                 if($row[2] == $user_id){
@@ -124,16 +124,17 @@
                     $sender = pg_fetch_row($sender);
                     $sender = $sender[0];
                 }
-		        echo "$date |  $sender :  $row[3]";
+		        echo "$date |  <strong>$sender</strong> :  $row[3]";
 		        echo "<br />\n";
             }
+            echo "</div>";
             
             ?>
             
             </div>
  
             <form method="post">
-                <input name="usermsg" type="text" id="usermsg" />
+                <input name="usermsg" type="text" id="usermsg" value=""/>
                 <p><input type="submit" value="Envoyer"></p>
             </form>
         </div>
