@@ -1,74 +1,74 @@
-<?php
-
-if(isset($_COOKIE['id'])) {
-  header('Location: app.php');
-}
-
-$host = "pga.esilv.olfsoftware.fr";
-$port = "5432";
-$dbname = "pggrp4";
-$user = "grp47oxh6hjegww";
-$password = "99yXmThpFno"; 
-$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
-$dbconn = pg_connect($connection_string);
-
-if(isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['password'])&&!empty($_POST['password'])){
-    
-    $password_md5 = md5($_POST['password']);  
-    $query = "SELECT * FROM users WHERE email = '".$_POST['email']."' AND password = '$password_md5'"; 
-    $result = pg_query($dbconn, $query); 
-    $row=pg_fetch_assoc($result);
-    
-    if(pg_num_rows($result) > 0){
-        
-      echo "Login Successfully !";
-      $cookie_name = "id";
-      $cookie_value = $row['id'];
-      setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day validity
-      header('Location: app.php');
-    }else{
-        
-      echo "Something Went Wrong";
-    }
-}
-
-?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Login</title>
-  <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/common.css">
-  <style>
-    a {cursor: pointer;}
-    form {margin-bottom: 10px;}
-  </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeoCrush</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<div class="container">
-  <h2>Login Here </h2>
-  <form  method="post">
-  
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-    </div>
-    
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-    </div>
-     
-    <input type="submit" name="submit" class="btn btn-primary" value="Login">
-  </form>
 
-  <div>
-    <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/register.php');">Register</a>
-  </div>
-</div>
+    <?php
+    require('config.php');
+    session_start();
+
+    if (isset($_POST['username']) && isset($_POST['password'])){
+      $username = stripslashes($_REQUEST['username']);
+      $username = pg_escape_string($conn, $username);
+      $password = stripslashes($_REQUEST['password']);
+      $password = pg_escape_string($conn, $password);
+      $query = "SELECT * FROM webdev.users WHERE username='$username' and password='".hash('sha256', $password)."'";
+      // print($query);
+      $result = pg_query($conn,$query) or die(pg_last_error($conn));
+    //   $rows = pg_num_rows($result);
+    $row=pg_fetch_assoc($result);
+
+      if($row>0){
+            // $_SESSION['username'] = $username;
+            // $user_name = $_SESSION['username'];
+            $cookie_name = "id";
+            $cookie_value = $row['id'];
+            setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day validity
+            header('Location: app.php');
+          exit();
+      }else{
+            $message = "Le nom d'utilisateur ou le mot de passe est incorrect.";
+      }
+    }
+  
+    ?>
+
+
+    <div class="registration-form">
+        <form action="" method="post" name="login">
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <h2 class="box-title">Sign In</h2>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control item" name="password" id="password" placeholder="Password" required>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-block create-account" name="submit">Log In</button>
+            </div>
+            <!-- Insert a "Lost password link" -->
+            <p class="box-register">No account? <a href="register.php">Sign up</a></p>
+            <?php if (!empty($message)) { ?>
+            	<p class="errorMessage"><?php echo $message; ?></p>
+            <?php } ?>
+        </form>
+        
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

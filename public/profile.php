@@ -12,14 +12,14 @@
 	$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
 	$dbconn = pg_connect($connection_string);
 
-	$query = "SELECT * FROM users WHERE id = '".$_COOKIE['id']."'"; 
+	$query = "SELECT * FROM webdev.users WHERE id = '".$_COOKIE['id']."'"; 
     $result = pg_query($dbconn, $query); 
     $row=pg_fetch_assoc($result);
 
 	if(pg_num_rows($result) > 0){
         
 	  $username = $row['username'];
-	//   $bio = $row['bio'];
+	  $bio = $row['bio'];
 	  $profil_picture = $row['profil_picture'];
 	}else{
 		  
@@ -41,6 +41,21 @@
       header('Location: login.php');
     }
   }
+
+  if(isset($_POST['bio'])&&!empty($_POST['bio'])){
+    
+
+	$query = "UPDATE webdev.users SET bio =  '".$_POST['bio']."' WHERE id = '".$_COOKIE['id']."' "; 
+    $ret = pg_query($dbconn, $query); 
+
+    if($ret){
+        
+        // echo "Data saved Successfully";
+    }else{
+        
+        // echo "Soething Went Wrong";
+    }
+}
 
 ?>
 
@@ -83,11 +98,14 @@
       </div>
     </div>
     <div class="navigation-icons">
+	  <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/dm.php?id=144&convId=145');" class="navigation-link">
+        <i class="far fa-envelope icon"></i>
+      </a>
       <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/app.php');" class="navigation-link">
-        <i class="far fa-compass icon"></i>
+        <i class="far fa-compass iconActive"></i>
       </a>
       <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/profile.php');" class="navigation-link">
-        <i class="far fa-user-circle iconActive"></i>
+        <i class="far fa-user-circle icon"></i>
       </a>
       <!-- <a href="https://instagram.com/mimoudix" id="signout" class="navigation-link">
         <i class="fas fa-sign-out-alt icon"></i>
@@ -122,7 +140,7 @@
 
 				<h1 class="profile-user-name"><?php echo $username;?></h1>
 
-				<button class="btn profile-edit-btn">Edit Profile</button>
+				<button onclick="" class="btn profile-edit-btn">Edit Profile</button>
 
 				<button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
 
@@ -140,7 +158,10 @@
 
 			<div class="profile-bio">
 
-				<p> Lorem ipsum dolor sit, amet consectetur adipisicing elit 📷✈️🏕️</p>
+			<form method="post">
+				<input name="bio" id="bio" maxlength="50" style="width: 480px; border: 0; background-color: #fafafa;" placeholder="Add a description.." value="<?php echo $bio;?>"></input>
+				<input type="submit" name="submit" class="btn btn-primary" value="Update">
+			</form>
 
 			</div>
 
@@ -160,7 +181,8 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture2" src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture2').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-info">
 
@@ -175,7 +197,8 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture3" src="https://images.unsplash.com/photo-1497445462247-4330a224fdb1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture3').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-info">
 
@@ -190,7 +213,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture4" src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture4').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-type">
 
@@ -211,7 +236,8 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture5" src="https://images.unsplash.com/photo-1502630859934-b3b41d18206c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture5').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-type">
 
@@ -232,7 +258,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture6" src="https://images.unsplash.com/photo-1498471731312-b6d2b8280c61?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture6').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-type">
 
@@ -253,7 +281,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture7" src="https://images.unsplash.com/photo-1515023115689-589c33041d3c?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture7').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-info">
 
@@ -268,7 +298,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture8" src="https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture8').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-type">
 
@@ -289,7 +321,8 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture9" src="https://images.unsplash.com/photo-1515814472071-4d632dbc5d4a?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture9').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-info">
 
@@ -304,7 +337,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture10" src="https://images.unsplash.com/photo-1511407397940-d57f68e81203?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture10').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-type">
 
@@ -325,7 +360,9 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture11" src="https://images.unsplash.com/photo-1518481612222-68bbe828ecd1?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture11').src = window.URL.createObjectURL(this.files[0])"/>
+
 
 				<div class="gallery-item-info">
 
@@ -338,9 +375,10 @@
 
 			</div>
 
-			<div class="gallery-item" tabindex="0">
+			<div id="picture12" class="gallery-item" tabindex="0">
 
 				<img src="https://images.unsplash.com/photo-1505058707965-09a4469a87e4?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture2').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-info">
 
@@ -355,7 +393,8 @@
 
 			<div class="gallery-item" tabindex="0">
 
-				<img src="https://images.unsplash.com/photo-1423012373122-fff0a5d28cc9?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<img id="picture13" src="https://images.unsplash.com/photo-1423012373122-fff0a5d28cc9?w=500&h=500&fit=crop" class="gallery-image" alt="">
+				<input style="" id="file-input" type="file"  accept="image/*" onchange="document.getElementById('picture13').src = window.URL.createObjectURL(this.files[0])"/>
 
 				<div class="gallery-item-type">
 

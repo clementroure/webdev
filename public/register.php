@@ -1,91 +1,103 @@
 <?php
+require('config.php');
+$message_erreur = "";
+if (isset($_REQUEST['username'], $_REQUEST['email'], $_REQUEST['password'])){
+  // récupérer le nom d'utilisateur et supprimer les antislashes ajoutés par le formulaire
+  $username = stripslashes($_REQUEST['username']);
+  $username = pg_escape_string($conn, $username); 
+  // récupérer l'email et supprimer les antislashes ajoutés par le formulaire
+  $email = stripslashes($_REQUEST['email']);
+  $email = pg_escape_string($conn, $email);
+  // récupérer le mot de passe et supprimer les antislashes ajoutés par le formulaire
+  $password = stripslashes($_REQUEST['password']);
+  $password = pg_escape_string($conn, $password);
 
-if(isset($_COOKIE['id'])) {
-  header('Location: app.php');
+  $telephone= $_REQUEST["phone-number"];
+  $myuuid = guidv4();
+
+  // $select = mysqli_query($conn, "SELECT * FROM users WHERE username ='$username' AND email ='$email'");
+  $select = pg_query($conn, "SELECT * FROM users WHERE username ='$username' AND email ='$email'");
+  if(pg_num_rows($select)) {
+    $message_erreur .="Ce nom d'utilisateur ou cet email existe déjà";
+  }
+  else {
+  //requéte SQL + mot de passe crypté
+  $query = "INSERT into webdev.users (id,username, email, password)
+              VALUES ('$myuuid','$username','$email', '".hash('sha256', $password)."')";
+  // Exécuter la requête sur la base de données
+
+  
+  $res = pg_query($conn, $query) or die(pg_last_error($conn));
+  header('location:login.php');
+  // exit();
+  }
+
 }
 
-$host = "pga.esilv.olfsoftware.fr";
-$port = "5432";
-$dbname = "pggrp4";
-$user = "grp47oxh6hjegww";
-$password = "99yXmThpFno"; 
-$connection_string = "host={$host} port={$port} dbname={$dbname} user={$user} password={$password} ";
-$dbconn = pg_connect($connection_string);
+  // generate random id
+  function guidv4($data = null) {
+    // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
+    $data = $data ?? random_bytes(16);
+    assert(strlen($data) == 16);
 
-if(isset($_POST['name'])&&!empty($_POST['name'])&&isset($_POST['email'])&&!empty($_POST['email'])&&isset($_POST['pwd'])&&!empty($_POST['pwd'])){
-    
-    $myuuid = guidv4();
-    $query = "insert into public.users(id,username,email,password)values('$myuuid','".$_POST['name']."','".$_POST['email']."','".md5($_POST['pwd'])."')"; // encrypted md5 hash password
-    $ret = pg_query($dbconn, $query);
-    if($ret){
-        
-        echo "Data saved Successfully";
-        $cookie_name = "id";
-        $cookie_value = $myuuid;
-        setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day validity
-        header('Location: app.php');
-    }else{
-        
-        echo "Soething Went Wrong";
-    }
-}
+    // Set version to 0100
+    $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
+    // Set bits 6-7 to 10
+    $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
 
-// generate random id
-function guidv4($data = null) {
-  // Generate 16 bytes (128 bits) of random data or use the data passed into the function.
-  $data = $data ?? random_bytes(16);
-  assert(strlen($data) == 16);
-
-  // Set version to 0100
-  $data[6] = chr(ord($data[6]) & 0x0f | 0x40);
-  // Set bits 6-7 to 10
-  $data[8] = chr(ord($data[8]) & 0x3f | 0x80);
-
-  // Output the 36 character UUID.
-  return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
-}
-
+    // Output the 36 character UUID.
+    return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+  }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <title>Register</title>
-  <meta name="keywords" content="PHP,PostgreSQL,Insert,Login">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <style>
-    a {cursor: pointer;}
-    form {margin-bottom: 10px;}
-  </style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LeoCrush</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-<div class="container">
-  <h2>Register Here </h2>
-  <form method="post">
-  
-    <div class="form-group">
-      <label for="name">Username:</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" requuired>
-    </div>
-    
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-    </div>
-    
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-    </div>
-     
-    <input type="submit" name="submit" class="btn btn-primary" value="Register">
-  </form>
+    <div class="registration-form">
+        <form action="" method="post">
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <h2> Sign Up</h2>
+            <div id="reponse"><?php
+              if (strlen($message_erreur) > 0) {
+                print("<p class=\"msgerreur\">".nl2br($message_erreur)."</p>");
+              }?>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control item" name="password" id="password" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="phone-number" id="phone-number" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" name="birth-date" id="birth-date" placeholder="Birth Date" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block create-account" name="submit">Create Account</button>
+            </div>
+            <p class="box-register">Already have an account? <a href="login.php">Sign in here</a></p>
+        </form>
 
-  <div>
-     <a onclick="var url = window.location.toString(); window.location.href = url.replace(/\/[^\/]*$/, '/login.php');">Login</a>
-  </div>
-</div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+

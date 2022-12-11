@@ -131,3 +131,9 @@ hr{
   width: 100%;
 }
 
+.floatinBtn {
+  position: absolute;
+  bottom: 10px;
+  width: 50%;
+  border: 3px solid #8AC007;
+}
